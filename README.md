@@ -1,84 +1,84 @@
 # Heatmap cFos
 
-Código de **Heatmap V1.2, versión interna 1.2.4**, para cuantificar objetos c-Fos y estudiar su distribución espacial en BLAa y BLAp. Incluye la aplicación de escritorio y los scripts del análisis final.
+Source code for **Heatmap V1.2, internal version 1.2.4**, for quantifying c-Fos objects and analyzing their spatial distribution in BLAa and BLAp. Includes the desktop application and the final analysis scripts.
 
-El programa trabaja con objetos previamente segmentados y exportados desde Imaris, archivos de área/volumen y ROI de ImageJ. No realiza la segmentación de imágenes de microscopía.
+The program processes previously segmented objects exported from Imaris, area/volume files, and ImageJ ROIs. It does not segment microscopy images.
 
-## Funciones
+## Features
 
-- Registro por experimento y animal, selección de animales y control de calidad por stack.
-- Conteo de objetos antes del filtro, después del filtro y dentro de la ROI.
-- Densidad por volumen, con el animal como unidad del resumen principal.
-- Mapas 2D y comparación de la distribución medial–lateral y ventral–dorsal.
-- Coordenadas 3D con Z en µm y posición anteroposterior en mm de bregma.
-- Edición de bregma, actualización de experimentos y consolidación de Stack_ID duplicados.
-- Exportación de tablas, matrices y figuras para el análisis posterior.
+- Experiment and animal registration, animal selection, and stack-level quality control.
+- Object counts before filtering, after filtering, and within the ROI.
+- Volume-normalized density, with the animal as the primary unit of analysis.
+- 2D maps and comparisons of medial–lateral and ventral–dorsal distributions.
+- 3D coordinates with Z in µm and anteroposterior position in mm relative to bregma.
+- Bregma editing, experiment updates, and consolidation of duplicate Stack_ID entries.
+- Export of tables, arrays, and figures for downstream analysis.
 
-## Instalación y ejecución
+## Installation and execution
 
-Se ha comprobado el código con Python 3.12. La interfaz requiere Tkinter y una sesión gráfica.
+The code has been tested with Python 3.12. The interface requires Tkinter and a graphical desktop session.
 
-Desde la carpeta del repositorio:
+From the repository directory:
 
 ```bash
 python -m venv .venv
 ```
 
-Activa el entorno con `source .venv/bin/activate` en macOS/Linux o con `.venv\Scripts\Activate.ps1` en PowerShell. Después:
+Activate the environment using `source .venv/bin/activate` on macOS/Linux or `.venv\Scripts\Activate.ps1` in PowerShell. Then run:
 
 ```bash
 python -m pip install -r requirements.txt
 python Heatmap_V1_2/iniciar.py
 ```
 
-`python -m tkinter` permite comprobar Tkinter. En distribuciones Linux puede ser necesario instalar el paquete de Tkinter correspondiente al Python utilizado. En macOS también se conserva el lanzador `Heatmap_V1_2/INICIAR_HEATMAP_V1_2.command` para instalaciones con un entorno Conda llamado `cfos`.
+Run `python -m tkinter` to check your Tkinter installation. On Linux distributions, you may need to install the Tkinter package corresponding to your Python installation. On macOS, the `Heatmap_V1_2/INICIAR_HEATMAP_V1_2.command` launcher is also included for installations with a Conda environment named `cfos`.
 
-## Primer uso
+## Getting started
 
-1. Abre la aplicación e importa tus catálogos con **Actualizar grupos** y **Actualizar bregmas (catálogo y proyecto)**. Las plantillas incluidas tienen únicamente encabezados.
-2. Selecciona los archivos de objetos, área/volumen y ROI de cada experimento. Revisa la correspondencia por stack.
-3. Comprueba el montaje, la orientación de la ROI, el bregma y el control de calidad. Guarda o actualiza el experimento.
-4. Marca los animales que entrarán en el análisis y ejecuta la corrida.
+1. Open the application and import your catalogs using **Actualizar grupos** (Update groups) and **Actualizar bregmas (catálogo y proyecto)** (Update bregma values: catalog and project). The included templates contain column headers only.
+2. Select the object, area/volume, and ROI files for each experiment. Check that the files are correctly matched for each stack.
+3. Verify mounting orientation, ROI orientation, bregma, and quality control. Save or update the experiment.
+4. Select the animals to include in the analysis and start the run.
 
-El proyecto se guarda por defecto en `proyecto_cfos/`, junto a la carpeta `Heatmap_V1_2/`. También puedes seleccionar un proyecto existente desde la interfaz. La variable de entorno `HEATMAP_CFOS_PROJECT` permite indicar otra ubicación.
+By default, the project is saved in `proyecto_cfos/`, alongside the `Heatmap_V1_2/` directory. You can also select an existing project through the interface. Use the `HEATMAP_CFOS_PROJECT` environment variable to specify a different location.
 
-Los datos experimentales, catálogos completados y resultados se gestionan localmente. `.gitignore` excluye esas rutas y los formatos de datos; solo permite las dos plantillas vacías que necesita el arranque. No reemplaces esas plantillas versionadas con catálogos reales: impórtalos desde la interfaz.
+Experimental data, completed catalogs, and results are managed locally. `.gitignore` excludes these paths and data formats, allowing only the two empty templates required at startup. Do not replace these version-controlled templates with actual catalogs; import your catalogs through the interface.
 
-## Convenciones anatómicas
+## Anatomical conventions
 
-| Variable | Convención |
+| Variable | Convention |
 | --- | --- |
-| X normalizada | 0 = medial; 1 = lateral |
-| Y normalizada | 0 = ventral; 1 = dorsal |
-| Z | Profundidad real en µm |
-| AP | Posición de bregma en mm |
-| Unidad principal | Animal; suma de objetos válidos / suma de volumen |
+| Normalized X | 0 = medial; 1 = lateral |
+| Normalized Y | 0 = ventral; 1 = dorsal |
+| Z | Actual depth in µm |
+| AP | Position relative to bregma in mm |
+| Primary unit | Animal; sum of valid objects / sum of sampled volumes |
 
-La transformación de Y es `Y_DV = 1 - Y_imagen`. Para el esquema de montaje de este estudio, el montaje izquierdo invierte X y el derecho invierte Z; la corrección de montaje no introduce otra inversión de Y. Estas convenciones requieren verificar cómo se adquirieron y montaron las muestras antes de aplicarlas a otro estudio.
+The Y transformation is `Y_DV = 1 - Y_imagen`. Under the mounting scheme used in this study, left-side mounting reverses X, whereas right-side mounting reverses Z; the mounting correction does not introduce an additional Y reversal. Before applying these conventions to another study, verify how the samples were acquired and mounted.
 
-El filtro elimina un objeto solo cuando se cumplen simultáneamente `Volume < 50 µm³` y `Surface / Volume > 2.8`. Consulta [docs/METODO.md](docs/METODO.md) para las unidades, entradas y límites de interpretación.
+The filter removes an object only when `Volume < 50 µm³` and `Surface / Volume > 2.8` are both satisfied. See [docs/METODO.md](docs/METODO.md) for units, inputs, and limitations of interpretation.
 
-## Código de análisis estadístico
+## Statistical analysis code
 
-La carpeta [analysis/](analysis/README.md) contiene los scripts del análisis final, con rutas configurables por argumentos. Conserva el diseño del estudio: BLAa/BLAp y Vehículo/SCOP-HB/LiCl. Para ejecutarlos instala también:
+The [analysis/](analysis/README.md) directory contains the final analysis scripts, with paths configurable through command-line arguments. The scripts retain the study design: BLAa/BLAp and Vehículo (vehicle)/SCOP-HB/LiCl. To run them, also install:
 
 ```bash
 python -m pip install -r requirements-analysis.txt
 ```
 
-Sus instrucciones detallan el orden de ejecución, los archivos necesarios y los supuestos. El repositorio no contiene informes ni resultados del estudio.
+The accompanying instructions describe the execution order, required files, and assumptions. The repository does not contain study reports or results.
 
-## Pruebas
+## Tests
 
 ```bash
 python -m unittest discover -s Heatmap_V1_2 -p "test_*.py" -v
 python -m unittest discover -s tests -p "test_*.py" -v
 ```
 
-Las pruebas de la aplicación cubren filtros, orientación, reconciliación de volúmenes por sector, exportación de coordenadas, selección de animales, bregma, duplicados y persistencia. Las de análisis comprueban la importación sin ejecutar el estudio y las interfaces de línea de comandos. Consulta [docs/VALIDACION.md](docs/VALIDACION.md) para el alcance de la verificación.
+The application tests cover filtering, orientation, reconciliation of sector volumes, coordinate export, animal selection, bregma, duplicate entries, and data persistence. The analysis tests verify that modules can be imported without running the study and check the command-line interfaces. See [docs/VALIDACION.md](docs/VALIDACION.md) for the scope of verification.
 
-## Procedencia y derechos
+## Provenance and rights
 
-Se conserva el aviso original: **Propiedad del Laboratorio de neurobiología conductual VMTG UNAM**.
+The original ownership notice is retained: **“Propiedad del Laboratorio de neurobiología conductual VMTG UNAM”** (Property of the Behavioral Neurobiology Laboratory, VMTG UNAM).
 
-No se ha añadido una licencia de código abierto. [NOTICE.md](NOTICE.md) y [docs/PROCEDENCIA.md](docs/PROCEDENCIA.md) documentan las fuentes y los cambios de preparación del repositorio.
+No open-source license has been added. [NOTICE.md](NOTICE.md) and [docs/PROCEDENCIA.md](docs/PROCEDENCIA.md) document the sources and the changes made when preparing the repository.
