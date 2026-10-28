@@ -1,0 +1,23 @@
+Producto: Heatmap V1.2
+Versión: 1.2.4
+Base científica: cfos_pipeline_carga_v9_XY_norm_ROI_20260810(1).zip
+Gestión: carga por experimentos, pre-registro, corrección de montaje y conteos acumulativos
+Corrección exclusiva por stack: montaje izquierdo = Flip X; montaje derecho = Flip Z; sin Flip Y dependiente del montaje
+Convención Y de salida: Y_DV = 1 - Y_imagen; 0=ventral y 1=dorsal
+Espacio: X 0=medial/1=lateral; Y 0=ventral/1=dorsal; Z real en µm; AP como bregma real en mm
+Análisis principal: animal como unidad, densidad por volumen y tres grupos separados
+Fecha base: 2026-08-12
+Corrección de convención Y: 2026-08-20
+Escalas grupales fijas: 2D 0–80,000; 3D 0–300,000 células/mm³
+Etiquetas de figuras: X normalizada; Y normalizada
+Persistencia: proyecto_cfos separado de la carpeta de la app; recuperación de proyectos previos
+Archivos propios: copia versionada de objetos, área/volumen y ROI en cada guardado/actualización
+Rutas portátiles: relativas a proyecto_cfos, con reparación automática de rutas absolutas antiguas
+Seguridad: el análisis se bloquea si proyecto_cfos sigue dentro de una versión de la app
+Distribución del repositorio: código, recursos de interfaz y catálogos vacíos; sin proyecto experimental
+Edición: los experimentos guardados pueden cargarse nuevamente en pre-registro y actualizarse
+Bregma editable: el registro Bregma_mm tiene prioridad analítica; el valor del Excel de área queda para auditoría
+Sincronización: el catálogo actualizado corrige registros guardados y respeta las ediciones manuales
+Eliminación: los experimentos retirados se archivan en experimentos_eliminados para recuperación manual
+Integridad Stack_ID: actualizar una fila nunca crea otra; los duplicados previos se consolidan conservando ROI y archivos válidos
+Selección final: columna Analizar persistente por animal; los desmarcados no entran a la corrida

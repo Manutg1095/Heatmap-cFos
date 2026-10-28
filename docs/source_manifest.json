@@ -1,0 +1,20 @@
+{
+  "application_source": "Heatmap_cFos_V1_2_4_actualizacion_bregma_sin_duplicados.zip",
+  "analysis_source": "Analisis_cFos_final_reproducible_20260922.zip",
+  "original_source_sha256": {
+    "heatmap/app.py": "d01da518b780b6700b4619eb79eb8c388a16a6f83f7ecdf04b75cf26a9a15cfa",
+    "heatmap/batch_project.py": "eb7f3c3fdab3e70695c859c289c2edee3724d87cb4a3b41d4e544d5d49f07288",
+    "heatmap/cfos_core.py": "b7a9565b256e18b15a4fe9fc03c995c93277d4b0f6b3ac9c9875b004b9e13a1f",
+    "heatmap/iniciar.py": "080979e63f7bc48597c860561e3831a2d52ca4a1d1eb31d126b311a09d8546ad",
+    "heatmap/test_v11.py": "062a79ef1168ab742ff73e2a9d029176205c3f8d83da06bc8c0146c1e2a89ee4",
+    "heatmap/test_v13.py": "0788582f635026cb32173e4cc6ab35ebb1fd4b3585ccc2f8087b639b5829a415",
+    "heatmap/test_v1_1.py": "d181d9b72167b5e874f16ff7f339e9ba016f9fec5d9f268f620492dcc9748a6b",
+    "heatmap/test_v1_2_editing.py": "0ec95602d028229d87e582ea9b34127aa1d078d627167f72eefa545c9eadf10a",
+    "heatmap/test_v1_2_selection.py": "8199c8088d1092377a9902993cc8b44c0df0016053e5563bb4f81fb94f21ec84",
+    "reanalysis/cfos_3d_support.py": "06c0c73b079d4d0fdb25d332d76ebdfa72a49391ae3b71ffbc90c0eccd393828",
+    "reanalysis/cfos_extra_analysis.py": "7e62541da52aa33320de137787488112a9662ed9040ce4d896069f7ee6b95a30",
+    "reanalysis/cfos_final_analysis.py": "f6859161796b0e2fc6bf84b1e2d1189d5e9f1c1f5310bed8a55035dd4f6c7eaa",
+    "reanalysis/make_cfos_figures.py": "9ffeccbf173833c2339f5f60a50b2f97e5fe6c1e39f4d7685fa5be2ad57eea88",
+    "reanalysis/read_xlsx_xml.py": "dd2e079d34d44c205977a1c2b84e5b21bb248ccd365d760e37bf0a37e846e5f4"
+  }
+}
